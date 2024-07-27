@@ -13,7 +13,11 @@ import pandas as pd
 # from multiprocessing import freeze_support
 import parameters as p
 from main import NetworkModel
+
+# Graphing Libraries
 import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 # Creating Parameters Dictionary
 # params = {"N": p.num_of_agents, "P": p.prob}
@@ -33,3 +37,25 @@ results_4s_df = pd.DataFrame(results_4s)
 # print(results_5s_df)
 
 results_4s_df.to_csv('export/data.csv', index=False)
+
+# Plotting the graph
+# Create the line plot
+plt.figure(figsize=(10, 6))
+sns.lineplot(data=results_4s_df, 
+             x='Step', 
+             y='Most Common State', 
+             hue='RunId', 
+             marker='o',
+             errorbar=("ci", 95),
+             palette="tab10")
+
+# Add labels and title
+plt.xlabel('Step')
+plt.ylabel('Most Common State')
+plt.title('Most Common State vs Step for Multiple Runs')
+plt.legend(title='RunId', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(True)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
