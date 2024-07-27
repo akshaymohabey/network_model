@@ -27,9 +27,15 @@ def most_common_state(model):
         s = agent.return_state()
         states.append(s)
     c_state = random.choice(f.most_common_list(states))
+
+    # Total States
+    n = float(len(states))
+    b = float(states.count(c_state))
+
+    ratio = b/n
     # Print Most Common State
     # print(c_state)
-    return c_state
+    return ratio
 
 #  Model Class
 class NetworkModel(mesa.Model):
