@@ -27,7 +27,7 @@ class People(mesa.Agent):
         self.state = random.choice(range(p.num_states))
         self.incoming_connections = []
         self.outgoing_connections = []
-        #Print Agent ID & State
+        # Print Agent ID & State
         # print(f'Agent{self.ID} | State {self.state}')
 
     # @property

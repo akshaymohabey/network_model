@@ -18,7 +18,6 @@ from main import NetworkModel
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
 # Creating Parameters Dictionary
 # params = {"N": p.num_of_agents, "P": p.prob}
 params = {"N": p.num_of_agents, "P": p.prob}
@@ -27,34 +26,36 @@ results_4s = batch_run(
     NetworkModel,
     parameters = params,
     iterations = 1,
-    max_steps= 4,
+    max_steps= 50,
     number_processes=1,
     data_collection_period=1,
     display_progress=True
 )
 
 results_4s_df = pd.DataFrame(results_4s)
-# print(results_5s_df)
+# print(results_4s_df.keys())
 
 results_4s_df.to_csv('export/data.csv', index=False)
 
-# Plotting the graph
+
+
+# Seaborn Graph
 # Create the line plot
 plt.figure(figsize=(10, 6))
 sns.lineplot(data=results_4s_df, 
              x='Step', 
              y='Most Common State', 
-             hue='RunId', 
-             marker='o',
-             errorbar=("ci", 95),
+             hue='N', 
+            #  marker='o',
+             errorbar=("ci",78),
              palette="tab10")
 
 # Add labels and title
 plt.xlabel('Step')
-plt.ylabel('Most Common State')
+plt.ylabel('Ratio')
 plt.title('Most Common State vs Step for Multiple Runs')
-plt.legend(title='RunId', bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.grid(True)
+plt.legend(title='N', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(False)
 
 # Show the plot
 plt.tight_layout()
