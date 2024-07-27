@@ -8,8 +8,8 @@ Network Game -- Marketing, Supply Chain
 Parameters File
 """
 
-num_of_agents = 15
-prob = .45
-mean_connections = 10
+num_of_agents = [100,200,500,1000]
+prob = 0.20
+# mean_connections = 10
 time_steps = 100
-num_states = 10
+num_states = 5

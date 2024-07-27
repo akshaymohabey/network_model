@@ -19,18 +19,35 @@ import agents
 import functions as f
 
 
-# Initialize Model Class
+# Returns mos common state in the model
+# Also add the proportion of the model in the model
+def most_common_state(model):
+    states = []
+    for agent in model.grid.get_all_cell_contents():
+        s = agent.return_state()
+        states.append(s)
+    c_state = random.choice(f.most_common_list(states))
+    # Print Most Common State
+    # print(c_state)
+    return c_state
+
+#  Model Class
 class NetworkModel(mesa.Model):
     def __init__(self,N,P):
 
         # Initializing Parent Class
         super().__init__()
-        self.steppy = 1
 
-        # self.G = nx.generators.random_graphs.erdos_renyi_graph(N,P)
+        # All agent states
+        # self.common_agents_state = 0
 
-        # Generating Randoom Network
+        # Generating Random Network
         self.G = nx.erdos_renyi_graph(N,P)
+
+        # Other Network Try
+        self.G = f.gnp_random_connected_graph(N,P)
+
+        nx.write_gexf(self.G,"export/network_graph.gexf")
 
         # Initializing Network Grid
         self.grid = mesa.space.NetworkGrid(self.G)
@@ -38,6 +55,7 @@ class NetworkModel(mesa.Model):
         self.running = True
         # print(nx.number_of_nodes(self.G))
         agent_no = 0
+        
 
         # Adding agents to the model
         # Change this defination to include enumerate function
@@ -52,39 +70,28 @@ class NetworkModel(mesa.Model):
             a = []
             a.append(node)
             node_agents = self.grid.get_cell_list_contents(a)
-            # print(node_agents)
             agent = node_agents[0]
             neighborhood_list = self.grid.get_neighborhood(node)
             neighbors = self.grid.get_cell_list_contents(neighborhood_list)
             agent.set_connections(neighbors)
-            # print(agent.return_connections())
-            
 
-        # Initiating Data Collector
+         # Initiating Data Collector
         self.datacollector = mesa.DataCollector(
-            agent_reporters={"State": "state"}
+            model_reporters={"Most Common State": most_common_state}
             )
         
         # Drawing the Network Graph
-        nx.draw(self.G,
-                with_labels = True,
-                node_color = "green",
-                node_size = 400,
-                font_color = "white",
-                font_family = "Times New Roman")
-        plt.margins(0.2)
-        plt.show()
+        # nx.draw(self.G,
+        #         with_labels = True,
+        #         node_color = "green",
+        #         node_size = 400,
+        #         font_color = "white",
+        #         font_family = "Times New Roman")
+        # plt.margins(0.2)
+        # plt.show()
+    
 
-    # Step Function
+    # Step/Game Function
     def step(self):
-        print(self.steppy)
-        self.steppy += 1
         self.datacollector.collect(self)
         self.schedule.step()
-
-
-main_instance = NetworkModel(p.num_of_agents,p.prob)
-
-
-for i in range(10):
-    main_instance.step()
