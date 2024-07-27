@@ -8,8 +8,14 @@ Network Game -- Marketing, Supply Chain
 Parameters File
 """
 
+# Number of Agents
 num_of_agents = [100,200,500,1000]
+
+# Probability of Connections
 prob = 0.20
-# mean_connections = 10
-time_steps = 100
+
+# Number of States
 num_states = 5
+
+# mean_connections = 10
+# time_steps = 100
