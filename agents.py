@@ -1,5 +1,5 @@
 """
-Akshay Kumar Mohabey
+Akshay Mohabey
 Python 3.12.4 
 Mac OSX
 19 July 2024
@@ -9,10 +9,11 @@ Agents File
 """
 
 # Importing Dependencies
-
 import mesa
 import parameters as p
 import random
+import functions as f
+import copy
 
 
 class People(mesa.Agent):
@@ -20,6 +21,7 @@ class People(mesa.Agent):
         super().__init__(unique_ID,model)
         self.ID = unique_ID
         self.state = random.choice(range(p.num_states))
+        self.connections = []
         print(f'Agent{self.ID} | State {self.state}')
 
     # @property
@@ -30,14 +32,32 @@ class People(mesa.Agent):
     def return_state(self):
         return self.state
     
-    def modify_state(self,incoming_state_list):
-        pass
+    # Connection setter
+    def set_connections(self,connection_list):
+        self.connections = copy.copy(connection_list)
     
-    def return_incoming_links(self):
-        pass
+    # Returns State List
+    def return_connection_states_list(self):
+        states_list = []
+        for agent in self.connections:
+            states_list.append(agent.state)
+        return states_list
+
+    # Modifying States
+    def modify_state(self,state_list):
+        most_common = f.most_common_list(state_list)
+        self.state = random.choice(most_common)
+    
+    # Should this come here
+    def return_connections(self):
+        return self.connections
 
     def step(self):
-        pass
+        # Print Neighbors list
+        # print(f'Agent: {self.ID} | State: {self.state}')
+        states_list = self.return_connection_states_list()
+        self.modify_state(states_list)
+
 
 
     
