@@ -17,6 +17,7 @@ from main import NetworkModel
 # Graphing Libraries
 import seaborn as sns
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Creating Parameters Dictionary
 # params = {"N": p.num_of_agents, "P": p.prob}
@@ -37,8 +38,7 @@ results_4s_df = pd.DataFrame(results_4s)
 
 results_4s_df.to_csv('export/data.csv', index=False)
 
-
-
+""" 2D Graph """
 # Seaborn Graph
 # Create the line plot
 plt.figure(figsize=(10, 6))
@@ -59,4 +59,65 @@ plt.grid(False)
 
 # Show the plot
 plt.tight_layout()
+plt.show()
+
+
+""" 3D Plot """
+
+# Creating a 3D Plot
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plotting data
+sc = ax.scatter(results_4s_df['Step'],
+                results_4s_df['N'], 
+                results_4s_df['Most Common State'], 
+                c=results_4s_df['N'],
+                cmap='viridis',
+                # marker='o'
+            )
+
+# Add labels and title
+ax.set_xlabel('Step')
+ax.set_ylabel('Number of Agents (N)')
+ax.set_zlabel('Most Common State')
+ax.set_title('3D Plot of Most Common State vs Step and Number of Agents')
+
+# Add color bar
+cbar = plt.colorbar(sc, ax=ax, pad=0.1)
+cbar.set_label('Number of Agents (N)')
+
+# Show plot
+plt.show()
+
+
+""" Creating a line plot """
+# Line Plot
+
+# Create a 3D plot
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Get unique values of N
+unique_n_values = results_4s_df['N'].unique()
+
+# Plot data
+for n in unique_n_values:
+    subset = results_4s_df[results_4s_df['N'] == n]
+    ax.plot(subset['Step'], 
+            subset['N'], 
+            subset['Most Common State'], 
+            # marker='o', 
+            label=f'N={n}')
+
+# Add labels and title
+ax.set_xlabel('Step')
+ax.set_ylabel('Number of Agents (N)')
+ax.set_zlabel('Most Common State')
+ax.set_title('3D Line Plot of Most Common State vs Step and Number of Agents')
+
+# Add legend
+ax.legend(title='Number of Agents')
+
+# Show plot
 plt.show()

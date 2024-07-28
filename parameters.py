@@ -9,7 +9,7 @@ Parameters File
 """
 
 # Number of Agents
-num_of_agents = [50,100,150,200,250,300]
+num_of_agents = [100,500,1000]
 
 # Probability of Connections
 prob = 0.01
