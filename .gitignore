@@ -5,3 +5,6 @@ __pycache__/functions.cpython-312.pyc
 __pycache__/main.cpython-312.pyc
 export/data.csv
 export/network_graph.gexf
+graphs/ER_2D_Plot_No_1.png
+graphs/ER_3D_Plot_No_1.png
+graphs/ER_3D_Plot_No_2.png

@@ -53,13 +53,16 @@ sns.lineplot(data=results_4s_df,
 # Add labels and title
 plt.xlabel('Step')
 plt.ylabel('Ratio')
-plt.title('Most Common State vs Step for Multiple Runs')
+plt.title('Most Common State/Total States vs Step for Multiple Runs')
 plt.legend(title='N', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(False)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+# Showing Graph
+# plt.show()
+# Exporting graphs to file
+plt.savefig("graphs/ER_2D_Plot_No_1.png")
 
 
 """ 3D Plot """
@@ -80,18 +83,23 @@ sc = ax.scatter(results_4s_df['Step'],
 # Add labels and title
 ax.set_xlabel('Step')
 ax.set_ylabel('Number of Agents (N)')
-ax.set_zlabel('Most Common State')
-ax.set_title('3D Plot of Most Common State vs Step and Number of Agents')
+ax.set_zlabel('Most Common State/Total States')
+ax.set_title('3D Plot:Most Common State/Total States vs Step and Number of Agents')
 
 # Add color bar
 cbar = plt.colorbar(sc, ax=ax, pad=0.1)
 cbar.set_label('Number of Agents (N)')
 
 # Show plot
-plt.show()
+# plt.show()
+
+# Save Plot
+plt.savefig("graphs/ER_3D_Plot_No_1.png")
 
 
-""" Creating a line plot """
+""" 
+Creating a 3D line plot 
+"""
 # Line Plot
 
 # Create a 3D plot
@@ -113,11 +121,12 @@ for n in unique_n_values:
 # Add labels and title
 ax.set_xlabel('Step')
 ax.set_ylabel('Number of Agents (N)')
-ax.set_zlabel('Most Common State')
-ax.set_title('3D Line Plot of Most Common State vs Step and Number of Agents')
+ax.set_zlabel('Most Common State/Total')
+ax.set_title('3D Line Plot: Most Common State/Total States vs Step and Number of Agents')
 
 # Add legend
 ax.legend(title='Number of Agents')
 
 # Show plot
-plt.show()
+# plt.show()
+plt.savefig("graphs/ER_3D_Plot_No_2.png")

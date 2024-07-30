@@ -9,13 +9,13 @@ Parameters File
 """
 
 # Number of Agents
-num_of_agents = [100,500,1000]
+num_of_agents = [100,200,300,400,500,600,700,800,900,1000]
 
 # Probability of Connections
 prob = 0.01
 
 # Number of States
-num_states = 10
+num_states = 4
 
 # mean_connections = 10
 # time_steps = 100
